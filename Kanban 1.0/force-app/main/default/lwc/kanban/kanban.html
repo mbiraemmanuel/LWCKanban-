@@ -1,0 +1,58 @@
+<template>
+    <div class="container">
+        <div class="board-top">
+            <h1 class="title"> 
+                VOICEBROOK IT SERVICES BACKLOG 
+                <lightning-icon icon-name="standard:kanban"  alternative-text="Kanban" size="large" title="Board"></lightning-icon>
+            </h1>
+
+            <div class="view">
+                <!-- This is where we will put the code for changing the view-->
+            </div>
+        </div>
+        <!-- Kanban Board Column Headers-->
+        <div class="slds-grid">
+            <div class="slds-tabs-path" role="application">
+                <div class="slds-path__track">
+                    <div class="slds-path__scroller-container">
+                        <div class="slds-path__scroller">
+                            <div class="slds-path__scroller_inner">
+                                <ul class="slds-path__nav" role="tablist" aria-orientation="horizontal">
+                                    <template for:each={columns} for:item="column" >
+                                        <li key={column.id} class="slds-path__item .slds-path__nav li slds-is-current slds-is-active" role="presentation">
+                                            <span class="slds-tabs–path__title slds-path__link slds-text-heading–medium"  role="option" tabindex="0">{column.label}</span>
+                                          </li>
+                                    </template> 
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-grid">
+            <div class="slds-tabs-path" role="application">
+            <div class="slds-path__track">
+              <div class="slds-path__scroller-container">
+                <div class="slds-path__scroller">
+                  <div class="slds-path__scroller_inner">
+                    <ul class="slds-path__nav" role="tablist" aria-orientation="horizontal">           
+                        
+                            
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Kanban Columns-->
+        <div class="slds-grid content">
+            
+        </div>
+    </div>
+
+</template>

@@ -1,0 +1,14 @@
+.title{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    font-size: -webkit-xxx-large;
+    font-family: Velisco;
+    /* font-size: 10px; */
+  }
+  
+.slds-tabs-path{
+    width: 100%;
+    margin: 0 5em;
+    margin-bottom: 1em;
+  }
