@@ -1,3 +1,11 @@
+.board-top{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .title{
     display:flex;
     align-items: center;
@@ -92,4 +100,18 @@ margin-bottom: 1em;
   background: white;
   top: -5.5rem !important;
   right: -1rem !important;
+}
+
+.left{
+  position: absolute;
+  right: 4em;
+  transition: transform .2s;
+  cursor: pointer;
+}
+
+
+.left:hover{
+  transform: scale(1.3); /* IE 9 */
+  -webkit-transform: scale(1.3); /* Safari 3-8 */
+  transform: scale(1.3); 
 }

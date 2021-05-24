@@ -5,9 +5,6 @@ export default class DragAndDropCard extends NavigationMixin(LightningElement) {
     @api status
     @api record
     @api colorsettings ;
-    @track internalProjectColor = this.colorsettings.projectColor
-    @track changeRequestColor = this.colorsettings.changeColor
-    @track ITSupportColor = this.colorsettings.supportColor
 
     get isSameStatus(){
         return this.status === this.record.Status
@@ -66,13 +63,13 @@ export default class DragAndDropCard extends NavigationMixin(LightningElement) {
 
     get getCardColor(){
         if(this.record.Type_of_Case__c == "IT Support"){
-            return `background: ` + this.ITSupportColor
+            return `background: ` + this.colorsettings.supportColor
         } 
         else if(this.record.Type_of_Case__c == "Change Request"){
-            return `background: ` + this.changeRequestColor
+            return `background: ` + this.colorsettings.changeColor
         } 
         else if(this.record.Type_of_Case__c == "Internal Projects"){
-            return `background: ` + this.internalProjectColor
+            return `background: ` + this.colorsettings.projectColor
         } 
     }
 

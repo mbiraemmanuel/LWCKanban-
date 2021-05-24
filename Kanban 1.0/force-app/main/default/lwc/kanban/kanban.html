@@ -6,9 +6,17 @@
                 <lightning-icon icon-name="standard:kanban"  alternative-text="Kanban" size="large" title="Board"></lightning-icon>
             </h1>
 
-            <div class="view">
-                <!-- This is where we will put the code for changing the view-->
+            <div class="left">
+                <div class="view">
+                    <!-- This is where we will put the code for changing the view-->
+                </div>
+
+                <!--Settings Icon-->
+                <div class="Settings">
+                    <lightning-icon icon-name="utility:settings" alternative-text="Settings" title="Settings" onclick={openSettings}></lightning-icon>
+                </div>
             </div>
+            
         </div>
 
         <!-- Kanban Board Column Headers-->
@@ -153,7 +161,7 @@
                             </lightning-input-field>
                             <lightning-input-field field-name={subjectField}>
                             </lightning-input-field>
-                            <lightning-input-field field-name={recordContactField}>
+                            <lightning-input-field field-name={ownerField}>
                             </lightning-input-field>
                                 <lightning-button
                                     class="slds-m-top_small"
@@ -173,7 +181,7 @@
             <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
                 <header class="slds-modal__header">
-                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={closeNewCaseForm} title="Close">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={closeSettings} title="Close">
                         <lightning-icon icon-name="utility:close" alternative-text="Close" title="Close"></lightning-icon>
                         <span class="slds-assistive-text">Close</span>
                     </button>
@@ -185,13 +193,13 @@
                         <div class="slds-form-element slds-form-element_stacked">
                           <label class="slds-form-element__label" for="stacked-input-id-01"><h3>Card Colors</h3></label>
                           <div class="slds-form-element__control">
-                              <lightning-input type="color" name="color" label="IT Support Color" value="#EEEEEE"></lightning-input>
+                              <lightning-input type="color" name="color" label="IT Support Color" onchange={handleSupportChange} value={colorSettings.supportColor}></lightning-input>
                           </div>
                           <div class="slds-form-element__control">
-                              <lightning-input type="color" name="color" label="Change Request Color" value="#EEEEEE"></lightning-input>
+                              <lightning-input type="color" name="color" label="Change Request Color" onchange={handleChangeChange} value={colorSettings.changeColor}></lightning-input>
                           </div>
                           <div class="slds-form-element__control">
-                              <lightning-input type="color" name="color" label="Internal Projects Color" value="#EEEEEE"></lightning-input>
+                              <lightning-input type="color" name="color" label="Internal Projects Color" onchange={handleProjectChange} value={colorSettings.projectColor}></lightning-input>
                           </div>
                         </div>
                         <div class="slds-form-element slds-form-element_stacked">

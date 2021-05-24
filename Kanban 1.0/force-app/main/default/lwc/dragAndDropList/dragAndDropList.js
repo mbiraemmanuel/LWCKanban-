@@ -7,7 +7,6 @@ export default class DragAndDropList extends LightningElement {
     @api records
     @api status
     @api colorsettings
-    @api colors = colorsettings
 
     
     // drag source event handler for dispatch event from child component

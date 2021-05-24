@@ -9,6 +9,7 @@ import TYPE_FIELD from '@salesforce/schema/Case.Type';
 import TYPE_CATEGORY_FIELD from '@salesforce/schema/Case.Type_Category__c';
 import RECORD_TYPE_FIELD from '@salesforce/schema/Case.RecordTypeId';
 import CONTACT_FIELD from '@salesforce/schema/Case.Contact.Name';
+import OWNER_FIELD from '@salesforce/schema/Case.Contact.OwnerId';
 import getCases from '@salesforce/apex/KanbanController.getObjectRecords'
 import { ShowToastEvent } from 'lightning/platformShowToastEvent'
 import { updateRecord } from 'lightning/uiRecordApi';
@@ -36,12 +37,9 @@ export default class Kanban extends LightningElement {
     @track isTabThreeOpen = false
     @track isCreateNewCaseOpen = false
     @track isSettingOpen = false
-    @track internalProjectColor = '#50f97c'
-    @track changeRequestColor = '#529aff'
-    @track ITSupportColor = '#ff7dd7'
     @track colorSettings = {
         changeColor: '#529aff',
-        supportColor: '#ff7dd7',
+        supportColor: '#FCAB64',
         projectColor: '#50f97c'
     }
     error;
@@ -59,6 +57,7 @@ export default class Kanban extends LightningElement {
     typeCategory = TYPE_CATEGORY_FIELD;
     recordTypeId = RECORD_TYPE_FIELD;
     recordContactField = CONTACT_FIELD;
+    ownerField = OWNER_FIELD;
 
 
 
@@ -228,6 +227,26 @@ export default class Kanban extends LightningElement {
 
     closeNewCaseForm(){
         this.isCreateNewCaseOpen = false;
+    }
+
+    openSettings(){
+        this.isSettingOpen = true;
+    }
+
+    closeSettings(){
+        this.isSettingOpen = false; 
+    }
+
+    handleSupportChange(event){
+        this.colorSettings.supportColor = event.target.value
+    }
+
+    handleChangeChange(event){
+        this.colorSettings.supportColor = event.target.value
+    }
+
+    handleProjecttChange(event){
+        this.colorSettings.supportColor = event.target.value
     }
 
     renderedCallback(){
