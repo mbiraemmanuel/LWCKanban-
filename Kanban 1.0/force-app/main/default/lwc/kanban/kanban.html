@@ -10,6 +10,7 @@
                 <!-- This is where we will put the code for changing the view-->
             </div>
         </div>
+
         <!-- Kanban Board Column Headers-->
         <div class="slds-grid">
             <div class="slds-tabs-path" role="application">
@@ -19,7 +20,7 @@
                             <div class="slds-path__scroller_inner">
                                 <ul class="slds-path__nav" role="tablist" aria-orientation="horizontal">
                                     <template for:each={columns} for:item="column" >
-                                        <li key={column.id} class="slds-path__item .slds-path__nav li slds-is-current slds-is-active" role="presentation">
+                                        <li key={column.label} class="slds-path__item .slds-path__nav li slds-is-active" role="presentation">
                                             <span class="slds-tabs–path__title slds-path__link slds-text-heading–medium"  role="option" tabindex="0">{column.label}</span>
                                           </li>
                                     </template> 
@@ -32,27 +33,181 @@
             </div>
         </div>
 
-        <div class="slds-grid">
-            <div class="slds-tabs-path" role="application">
-            <div class="slds-path__track">
-              <div class="slds-path__scroller-container">
-                <div class="slds-path__scroller">
-                  <div class="slds-path__scroller_inner">
-                    <ul class="slds-path__nav" role="tablist" aria-orientation="horizontal">           
-                        
-                            
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </div>
-        </div>
 
         <!-- Kanban Columns-->
-        <div class="slds-grid content">
+        <div class="slds-grid content">    
+            <template for:each={columns} for:item="column" class="column">
+                <c-drag-and-drop-list records={cases} class="dropZone" 
+                                    status={column.label} key={column} 
+                                    style={calcWidth} onlistitemdrag={handleListItem}
+                                    onparent={handleParent} onitemdrop={handleItemDrop}
+                                    colorsettings={colorSettings}>
+                </c-drag-and-drop-list>
+                                      
+            </template>
+            <div class="newCase" onclick={newCase}>
+                <img class="addImage" src={addImage}>
+            </div>
             
         </div>
+
+
+        <!-- Modal Box-->
+        <template if:true={isModalOpen}>
+            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_medium" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+                <div class="slds-modal__container">
+                    <div class="slds-tabs_scoped">
+                        <ul class="slds-tabs_scoped__nav" role="tablist">
+                          <li class="slds-tabs_scoped__item slds-is-active" title="Item One" role="presentation">
+                            <a class="slds-tabs_scoped__link" href="#" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-scoped-1" id="tab-scoped-1__item" onclick={detailTab}>Details</a>
+                          </li>
+                          <li class="slds-tabs_scoped__item slds-is-active" title="Item Two" role="presentation">
+                            <a class="slds-tabs_scoped__link" href="#" role="tab" tabindex="-1" aria-selected="true" aria-controls="tab-scoped-2" id="tab-scoped-2__item" onclick={feedTab}>Feed</a>
+                          </li>
+                          <li class="slds-tabs_scoped__item slds-is-active" title="Item Three" role="presentation">
+                            <a class="slds-tabs_scoped__link" href="#" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-scoped-3" id="tab-scoped-3__item" onclick={flowTab}>Flows</a>
+                          </li>
+                        </ul>
+                        <template if:true={isTabOneOpen}>
+                            <div class="slds-tabs_scoped__content slds-show" role="tabpanel" aria-labelledby="tab-scoped-1__item">
+                            <header class="slds-modal__header">
+                                <button class="slds-button close slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={valueUpdate}>
+                                    <lightning-icon icon-name="utility:close" alternative-text="Close" title="Close"></lightning-icon>
+                                </button>
+                            <h2  class="slds-modal__title slds-hyphenate">Edit Record</h2>
+                            </header>
+        
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <lightning-record-edit-form record-id={currRecord}
+                                        object-api-name={sObject}>
+                                        <lightning-messages>
+                                        </lightning-messages>
+                                        <lightning-output-field field-name={idField}>
+                                        </lightning-output-field>
+                                        <lightning-input-field field-name={statusField}>
+                                        </lightning-input-field>
+                                        <lightning-input-field field-name={priorityField}>
+                                        </lightning-input-field>
+                                        <lightning-input-field field-name={typeField}>
+                                        </lightning-input-field>
+                                        <lightning-input-field field-name={typeCategory}>
+                                        </lightning-input-field>
+                                        <lightning-input-field field-name={subjectField}>
+                                        </lightning-input-field>
+                                        <lightning-button
+                                            class="slds-m-top_small"
+                                            variant="brand"
+                                            type="submit"
+                                            name="update"
+                                            label="Update">
+                                        </lightning-button>
+                                </lightning-record-edit-form>
+                                
+                            </div>
+                        </div>
+                        </template>
+                        
+                        <template if:true={isTabTwoOpen}>
+                            <div class="slds-tabs_scoped__content slds-show" role="tabpanel" aria-labelledby="tab-scoped-2__item">
+                                Hello World 
+                            </div>
+                        </template>
+                        
+                        <template if:true={isTabThreeOpen}>
+                            <div  class="slds-tabs_scoped__content slds-show" role="tabpanel" aria-labelledby="tab-scoped-3__item">Item Three Content</div>
+                        </template>
+                        
+                      </div>
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open">
+            </div>
+            
+        </template>
+
+        <!-- Create a new case form modal -->
+        <template if:true={isCreateNewCaseOpen}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={closeNewCaseForm} title="Close">
+                        <lightning-icon icon-name="utility:close" alternative-text="Close" title="Close"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-modal__title slds-hyphenate">Create a New IT Case</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" >
+                        <lightning-record-edit-form object-api-name={sObject}
+                        record-type-id="0122g000000AOCSAA4">
+                            <lightning-messages>
+                            </lightning-messages>
+                            <lightning-input-field field-name={recordTypeId}>
+                            </lightning-input-field>
+                            <lightning-input-field field-name={statusField}>
+                            </lightning-input-field>
+                            <lightning-input-field field-name={priorityField}>
+                            </lightning-input-field>
+                            <lightning-input-field field-name={typeField}>
+                            </lightning-input-field>
+                            <lightning-input-field field-name={typeCategory}>
+                            </lightning-input-field>
+                            <lightning-input-field field-name={subjectField}>
+                            </lightning-input-field>
+                            <lightning-input-field field-name={recordContactField}>
+                            </lightning-input-field>
+                                <lightning-button
+                                    class="slds-m-top_small"
+                                    type="submit"
+                                    label="Create new">
+                                </lightning-button>
+                        </lightning-record-edit-form>
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+            
+        
+        <!-- Kanban Setting Configurator -->
+        <template if:true={isSettingOpen}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={closeNewCaseForm} title="Close">
+                        <lightning-icon icon-name="utility:close" alternative-text="Close" title="Close"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-modal__title slds-hyphenate">Kanban Settings</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" >
+                    
+                    <div class="slds-form">
+                        <div class="slds-form-element slds-form-element_stacked">
+                          <label class="slds-form-element__label" for="stacked-input-id-01"><h3>Card Colors</h3></label>
+                          <div class="slds-form-element__control">
+                              <lightning-input type="color" name="color" label="IT Support Color" value="#EEEEEE"></lightning-input>
+                          </div>
+                          <div class="slds-form-element__control">
+                              <lightning-input type="color" name="color" label="Change Request Color" value="#EEEEEE"></lightning-input>
+                          </div>
+                          <div class="slds-form-element__control">
+                              <lightning-input type="color" name="color" label="Internal Projects Color" value="#EEEEEE"></lightning-input>
+                          </div>
+                        </div>
+                        <div class="slds-form-element slds-form-element_stacked">
+                          <label class="slds-form-element__label" for="stacked-input-id-02">Textarea Input</label>
+                          <div class="slds-form-element__control">
+                            <textarea id="stacked-input-id-02" placeholder="Placeholder text…" class="slds-textarea"></textarea>
+                          </div>
+                        </div>
+                      </div>
+
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+
     </div>
 
 </template>

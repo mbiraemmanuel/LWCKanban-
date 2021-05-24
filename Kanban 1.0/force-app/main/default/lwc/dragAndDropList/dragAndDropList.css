@@ -1,0 +1,36 @@
+.slds-lane {
+    height: 100vh;
+    overflow-y: auto;
+    border-left: 1px solid #eef9f9 !important;
+    flex: 1 1 0%;
+    min-width: 5rem !important;
+  }
+  
+    .slds-col:first-child {
+    border-left: none;
+  }
+  
+  .slds-scrollable_y::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(0,0,0,0.1);
+    border: 1px solid #ccc;
+    }
+    
+      .slds-scrollable_y::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: linear-gradient(left, #fff, #e4e4e4);
+    border: 1px solid #aaa;
+    }
+    
+      .slds-scrollable_y::-webkit-scrollbar-thumb:hover {
+    background: #fff;
+    }
+    
+      .slds-scrollable_y::-webkit-scrollbar-thumb:active {
+    background: linear-gradient(left, #22ADD4, #1E98BA);
+    }
+
+    .over {
+      border-style: solid dotted;
+      border-color: rgb(233, 161, 6);
+  }

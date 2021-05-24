@@ -1,0 +1,52 @@
+<template>
+    <template if:true={isSameStatus}>
+        <div data-id={record.Id} draggable="true" 
+            onclick={senddata} ondragstart={itemDragStart} 
+            ondragend={removeDragStyle}>
+        
+                <div data-target="card" style={getCardColor}  class="Card slds-item slds-m-around-small slds-title slds-tile-board">
+                    <h3 class="slds-truncate slds-section-title-divider slds-m-bottom-x-small slds-title slds-theme_shade" >
+                        <div class="tile-header">
+                            <a href="#" data-id={record.Id} onclick={navigateCaseHandler}>
+                                <span class="slds-truncate" >
+                                    {record.Type_Category__c}
+                                </span>
+                            </a>
+                            <div class={record.Priority}>
+                                <div class="Priority"></div>
+                            </div>
+                        </div>
+                        
+                    </h3>
+
+                    <div class="slds-tile__detail slds-text-body-small">
+                       
+                        <p class="slds-has-flexi-truncate tile_content">
+                            <span class="main_text">Case Number: </span>
+                            <a  href="#" data-id={record.Id} onclick={navigateCaseHandler}>{record.CaseNumber}</a>
+                        </p>
+
+                        <p class="slds-has-flexi-truncate tile_content">
+                            <span class="main_text">Subject: </span>          
+                            {record.Subject}
+                        </p>
+                            
+                            
+                        <p class="slds-has-flexi-truncate tile_content">
+                            <span class="main_text">Type of Case: </span> {record.Type_of_Case__c}
+                        </p>
+
+                        <p class="slds-has-flexi-truncate tile_content">
+                            <span class="main_text slds-truncate">Owner: </span> 
+                            {record.Owner.Name}
+                        </p>
+                            
+                        <p class="slds-has-flexi-truncate tile_content">
+                                <span class="main_text">Requested By: </span> {record.Contact.Name}
+                        </p>
+                    </div>
+                </div>
+                    
+        </div>
+    </template>
+</template>

@@ -1,0 +1,21 @@
+<template>
+
+    <div class="slds-col slds-lane slds-has-dividers-around-space slds-scrollable_y dropZone" 
+        ondrop={handleDrop}
+        data-role="drop-target"
+        ondragover={handleDragOver}
+        ondragleave={handleDragLeave}
+        style="height:70vh; overflow-y:auto;">
+
+                <template for:each={records} for:item="recordItem">
+                    <c-drag-and-drop-card class="card" status={status} 
+                                            record={recordItem} draggable=true 
+                                            onitemdrag={handleItemDrag} 
+                                            onchild={handleChild} key={recordItem.Id}
+                                            colorsettings={colors}>
+                    </c-drag-and-drop-card>
+                </template>    
+
+    </div>
+
+</template>
