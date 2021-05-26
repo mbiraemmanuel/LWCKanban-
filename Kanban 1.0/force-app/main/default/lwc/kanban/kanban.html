@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
+    <div class="container" style={getBackground}>
         <div class="board-top">
-            <h1 class="title"> 
+            <h1 class="title" style={getTitleColor}> 
                 VOICEBROOK IT SERVICES BACKLOG 
                 <lightning-icon icon-name="standard:kanban"  alternative-text="Kanban" size="large" title="Board"></lightning-icon>
             </h1>
@@ -49,7 +49,7 @@
                                     status={column.label} key={column} 
                                     style={calcWidth} onlistitemdrag={handleListItem}
                                     onparent={handleParent} onitemdrop={handleItemDrop}
-                                    colorsettings={colorSettings}>
+                                    colorsettings={currentTheme}>
                 </c-drag-and-drop-list>
                                       
             </template>
@@ -190,18 +190,12 @@
                 <div class="slds-modal__content slds-p-around_medium" >
                     
                     <div class="slds-form">
-                        <div class="slds-form-element slds-form-element_stacked">
-                          <label class="slds-form-element__label" for="stacked-input-id-01"><h3>Card Colors</h3></label>
-                          <div class="slds-form-element__control">
-                              <lightning-input type="color" name="color" label="IT Support Color" onchange={handleSupportChange} value={colorSettings.supportColor}></lightning-input>
-                          </div>
-                          <div class="slds-form-element__control">
-                              <lightning-input type="color" name="color" label="Change Request Color" onchange={handleChangeChange} value={colorSettings.changeColor}></lightning-input>
-                          </div>
-                          <div class="slds-form-element__control">
-                              <lightning-input type="color" name="color" label="Internal Projects Color" onchange={handleProjectChange} value={colorSettings.projectColor}></lightning-input>
-                          </div>
-                        </div>
+                        <lightning-radio-group name="themeChoice"
+                                               label="Choose a Theme"
+                                               options={themeOptions}
+                                               value={value}
+                                               type="radio"
+                                               onchange={changeTheme}></lightning-radio-group>
                         <div class="slds-form-element slds-form-element_stacked">
                           <label class="slds-form-element__label" for="stacked-input-id-02">Textarea Input</label>
                           <div class="slds-form-element__control">

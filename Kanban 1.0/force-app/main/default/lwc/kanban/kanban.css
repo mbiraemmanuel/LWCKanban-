@@ -55,7 +55,8 @@ margin-bottom: 1em;
   }
 
 .container{
-  background-color: #e8eaea;
+  /* background-color: #e8eaea; */
+  margin: -1.5em;
 }
 
 .newCase{

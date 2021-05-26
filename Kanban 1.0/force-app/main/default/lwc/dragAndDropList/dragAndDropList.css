@@ -1,7 +1,6 @@
 .slds-lane {
     height: 100vh;
     overflow-y: auto;
-    border-left: 1px solid #eef9f9 !important;
     flex: 1 1 0%;
     min-width: 5rem !important;
   }

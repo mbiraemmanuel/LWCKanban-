@@ -21,27 +21,27 @@
 
                     <div class="slds-tile__detail slds-text-body-small">
                        
-                        <p class="slds-has-flexi-truncate tile_content">
+                        <p class="slds-truncate tile_content">
                             <span class="main_text">Case Number: </span>
                             <a  href="#" data-id={record.Id} onclick={navigateCaseHandler}>{record.CaseNumber}</a>
                         </p>
 
-                        <p class="slds-has-flexi-truncate tile_content">
+                        <p class="slds-truncate tile_content">
                             <span class="main_text">Subject: </span>          
                             {record.Subject}
                         </p>
                             
                             
-                        <p class="slds-has-flexi-truncate tile_content">
+                        <p class="slds-truncate tile_content">
                             <span class="main_text">Type of Case: </span> {record.Type_of_Case__c}
                         </p>
 
-                        <p class="slds-has-flexi-truncate tile_content">
+                        <p class="slds-truncate tile_content">
                             <span class="main_text slds-truncate">Owner: </span> 
                             {record.Owner.Name}
                         </p>
                             
-                        <p class="slds-has-flexi-truncate tile_content">
+                        <p class="slds-truncate tile_content">
                                 <span class="main_text">Requested By: </span> {record.Contact.Name}
                         </p>
                     </div>

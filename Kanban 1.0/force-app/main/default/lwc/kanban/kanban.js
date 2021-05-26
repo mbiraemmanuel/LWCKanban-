@@ -37,11 +37,15 @@ export default class Kanban extends LightningElement {
     @track isTabThreeOpen = false
     @track isCreateNewCaseOpen = false
     @track isSettingOpen = false
-    @track colorSettings = {
-        changeColor: '#529aff',
-        supportColor: '#FCAB64',
-        projectColor: '#50f97c'
-    }
+    @track currentTheme = {};
+    
+    @track colorSettings = {}
+    @track themeOptions = [
+        {'label' : 'Snow', 'value': 'snow'}, 
+        {'label' : 'Summer', 'value': 'summer'}, 
+        {'label' : 'Dark Mode', 'value': 'darkmode'} 
+    ]
+    value = ''
     error;
     recordId;
     wiredCases;
@@ -90,7 +94,16 @@ export default class Kanban extends LightningElement {
                 console.log('Error while fetching Picklist values ${error}');
             }
         }
-
+    
+    connectedCallback(){
+        this.colorSettings = {
+            'snow' : {changeColor: '#b4a3d6', supportColor: '#ff5c6be3', projectColor: '#50f9ba', fontColor: "black", background: "#82DDF0"},
+            'summer' : {changeColor: '#529aff', supportColor: '#FCAB64', projectColor: '#50f97c', fontColor: "black", background: "#F0C987"},
+            'darkmode' : {changeColor: '#ff8d10', supportColor: '#ff5d5dd6', projectColor: '#18aa3a', fontColor: "#6688CC", background: "#00072D"}
+        }
+        this.currentTheme = this.colorSettings['summer']
+        this.value = 'summer'
+    }
     
     handleClick(event){
         console.log(event.target.dataset.item);
@@ -103,6 +116,21 @@ export default class Kanban extends LightningElement {
     get calcWidth(){
         let len = this.columns.length
         return `width: calc(100%/ ${len})`
+    }
+
+    get getBackground(){
+        let color = this.currentTheme.background; 
+        return `background: ${color}`
+    }
+
+    get getTitleColor(){
+        let color =  this.currentTheme.fontColor;
+        return `color: ${color} !important`
+    }
+
+    changeTheme(event) {
+        console.log(event.detail.value);
+        this.currentTheme = this.colorSettings[event.detail.value]
     }
 
     handleItemDrop(event){
@@ -235,18 +263,6 @@ export default class Kanban extends LightningElement {
 
     closeSettings(){
         this.isSettingOpen = false; 
-    }
-
-    handleSupportChange(event){
-        this.colorSettings.supportColor = event.target.value
-    }
-
-    handleChangeChange(event){
-        this.colorSettings.supportColor = event.target.value
-    }
-
-    handleProjecttChange(event){
-        this.colorSettings.supportColor = event.target.value
     }
 
     renderedCallback(){
