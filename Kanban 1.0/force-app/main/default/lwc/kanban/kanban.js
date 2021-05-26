@@ -130,6 +130,7 @@ export default class Kanban extends LightningElement {
 
     changeTheme(event) {
         console.log(event.detail.value);
+        this.value = event.detail.value
         this.currentTheme = this.colorSettings[event.detail.value]
     }
 
