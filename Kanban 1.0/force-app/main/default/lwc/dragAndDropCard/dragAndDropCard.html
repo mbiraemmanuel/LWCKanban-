@@ -1,18 +1,18 @@
 <template>
     <template if:true={isSameStatus}>
-        <div data-id={record.Id} draggable="true" 
+        <div class="dragCard" data-id={record.Id} 
             onclick={senddata} ondragstart={itemDragStart} 
-            ondragend={removeDragStyle}>
+            ondragend={removeDragStyle} draggable="true">
         
-                <div data-target="card" style={getCardColor}  class="Card slds-item slds-m-around-small slds-title slds-tile-board">
+                <div data-target="card" style={getCardColor}  class='Card slds-item slds-m-around-small slds-title slds-tile-board'>
                     <h3 class="slds-truncate slds-section-title-divider slds-m-bottom-x-small slds-title slds-theme_shade" >
                         <div class="tile-header">
-                            <a href="#" data-id={record.Id} onclick={navigateCaseHandler}>
+                            <a href="#" data-id={record.Id} onclick={navigateRecordHandler}>
                                 <span class="slds-truncate" >
                                     {record.Type_Category__c}
                                 </span>
                             </a>
-                            <div class={record.Priority}>
+                            <div class={record.Priority__c}>
                                 <div class="Priority"></div>
                             </div>
                         </div>
@@ -23,17 +23,17 @@
                        
                         <p class="slds-truncate tile_content">
                             <span class="main_text">Case Number: </span>
-                            <a  href="#" data-id={record.Id} onclick={navigateCaseHandler}>{record.CaseNumber}</a>
+                            <a  href="#" data-id={record.Id} onclick={navigateRecordHandler}>{record.Name}</a>
                         </p>
 
                         <p class="slds-truncate tile_content">
                             <span class="main_text">Subject: </span>          
-                            {record.Subject}
+                            {record.Subject__c}
                         </p>
                             
                             
                         <p class="slds-truncate tile_content">
-                            <span class="main_text">Type of Case: </span> {record.Type_of_Case__c}
+                            <span class="main_text">Type of Case: </span> {record.RecordType.Name}
                         </p>
 
                         <p class="slds-truncate tile_content">
@@ -42,7 +42,7 @@
                         </p>
                             
                         <p class="slds-truncate tile_content">
-                                <span class="main_text">Requested By: </span> {record.Contact.Name}
+                                <span class="main_text">Requested By: </span> {record.Requested_By__r.Name}
                         </p>
                     </div>
                 </div>

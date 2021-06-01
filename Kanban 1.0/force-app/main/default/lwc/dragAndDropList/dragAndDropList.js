@@ -7,8 +7,9 @@ export default class DragAndDropList extends LightningElement {
     @api records
     @api status
     @api colorsettings
+    @api sobject
 
-    
+
     // drag source event handler for dispatch event from child component
     handleItemDrag(evt){
         console.log('Drag event started');
@@ -73,10 +74,16 @@ export default class DragAndDropList extends LightningElement {
          loadScript(this, jQueryUI)
         .then(() => {
             console.log('JQueryUI loaded.');
+            // $(this.template.querySelector('.dropZone')).sortable();
+            // $(this.template.querySelector('.dropZone')).disableSelection();
         })
         .catch(error=>{
             console.log('Failed to load the JQueryUI : ' +error);
         });
+    }
+    connectedCallback(){
+        // $(this.template.querySelector('.dropZone')).sortable();
+        // $(this.template.querySelector('.dropZone')).disableSelection();
     }
     
 }
